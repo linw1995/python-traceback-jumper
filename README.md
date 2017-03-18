@@ -1,5 +1,7 @@
 # python-traceback-jumper README
 
+![icon](https://cdn.rawgit.com/linw1995/python-traceback-jumper/7bdc72b4/images/icon.svg)
+
  An extension for VSCode that jumps to the source by clicking python traceback
 
 ## Features
@@ -17,7 +19,7 @@
 
 ## Release Notes
 
-### 1.0.0
+### 1.0.2
 
 Current version
 

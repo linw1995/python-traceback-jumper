@@ -1,5 +1,4 @@
 /*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 'use strict';
@@ -30,13 +29,12 @@ export class DocumentLinkProvider implements vscode.DocumentLinkProvider {
             line_idx++;
         }
         line_idx = last_line_idx;
-        /*get the last python traceback group*/
+        // get the last python traceback group
 
         while (line_idx < doc.lineCount) {
             let line = doc.lineAt(line_idx);
             let result = line.text.match("  File \"(.*?)\", line ([0-9]+), in (.*)");
             if (result != null) {
-                last_line_idx = line_idx;
                 let line = parseInt(result[2]);
                 let positon_start = new vscode.Position(line - 1, 0);
                 let positon_end = positon_start;
@@ -52,19 +50,7 @@ export class DocumentLinkProvider implements vscode.DocumentLinkProvider {
                 if (cur_uri && cur_uri.toString() != uri.toString()) {
                     let index = total_diagnostics.findIndex(x => x[0].toString() == cur_uri.toString())
                     if (index >= 0) {
-                        let diagnostics_new = [];
-                        let diagnostics_old = total_diagnostics[index][1];
-                        for (let key in diagnostics) {
-                            let isExist = false;
-                            let item = diagnostics[key];
-                            if (diagnostics_old.findIndex(x => x.range.start.line == item.range.start.line) >= 0) {
-                                isExist = true;
-                            }
-                            if (!isExist) {
-                                diagnostics_new.push(item)
-                            }
-                        }
-                        total_diagnostics[index][1] = diagnostics_new.concat(diagnostics_old);
+                        total_diagnostics[index][1] = total_diagnostics[index][1].concat(diagnostics);  
                     } else {
                         total_diagnostics.push([cur_uri, diagnostics]);
                     }
@@ -81,30 +67,22 @@ export class DocumentLinkProvider implements vscode.DocumentLinkProvider {
                 line_idx++;
                 let function_name = result[3];
                 let info = doc.lineAt(line_idx).text + " IN " + function_name;
-                let diagnostic = new vscode.Diagnostic(ref_range, info, vscode.DiagnosticSeverity.Error);
+                let diagnostic = new vscode.Diagnostic(ref_range, info, vscode.DiagnosticSeverity.Warning);
                 diagnostic.source = "traceback " + idx++;
                 diagnostics.push(diagnostic);
+                last_line_idx = line_idx;
             }
             line_idx++;
         }
         if (diagnostics.length > 0) {
-            diagnostics[diagnostics.length - 1].source = "traceback end";
-            diagnostics[diagnostics.length - 1].message += " < " + doc.lineAt(last_line_idx + 1).text + " >";
+            let diagnosticPrev = diagnostics[diagnostics.length - 1];
+            let lastDiagnostic = new vscode.Diagnostic(diagnosticPrev.range, doc.lineAt(last_line_idx+1).text, vscode.DiagnosticSeverity.Error);
+            lastDiagnostic.source = "traceback end";
+            diagnostics.push(lastDiagnostic);
+
             let index = total_diagnostics.findIndex(x => x[0].toString() == cur_uri.toString())
             if (index >= 0) {
-                let diagnostics_new = [];
-                let diagnostics_old = total_diagnostics[index][1];
-                for (let key in diagnostics) {
-                    let isExist = false;
-                    let item = diagnostics[key];
-                    if (diagnostics_old.findIndex(x => x.range.start.line == item.range.start.line) >= 0) {
-                        isExist = true;
-                    }
-                    if (!isExist) {
-                        diagnostics_new.push(item)
-                    }
-                }
-                total_diagnostics[index][1] = diagnostics_new.concat(diagnostics_old);
+                total_diagnostics[index][1] = total_diagnostics[index][1].concat(diagnostics);
             } else {
                 total_diagnostics.push([cur_uri, diagnostics]);
             }
