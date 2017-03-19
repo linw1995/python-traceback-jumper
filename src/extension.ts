@@ -3,16 +3,20 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 import * as vscode from 'vscode';
-import { DocumentLinkProvider, diagnosticCollection } from './providers/DocumentLinksProvider';
+import { DocumentLinkProvider } from './providers/DocumentLinksProvider';
 
 let provider: vscode.Disposable;
 
 export function activate(context: vscode.ExtensionContext) {
-    let sel: vscode.DocumentSelector = { language: 'python-traceback-output' };
-    provider = vscode.languages.registerDocumentLinkProvider(sel, new DocumentLinkProvider);
+    let isEnable = vscode.workspace.getConfiguration("python.tracebackJumper").get<boolean>("Enable");
+    if (isEnable) {
+        let sel: vscode.DocumentSelector = { language: 'python-traceback-output' };
+        provider = vscode.languages.registerDocumentLinkProvider(sel, new DocumentLinkProvider);
+    }
 }
 
 export function deactivate() {
-    provider.dispose();
-    diagnosticCollection.dispose();
+    if (provider) {
+        provider.dispose();
+    }
 }

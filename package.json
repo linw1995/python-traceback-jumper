@@ -2,12 +2,16 @@
     "name": "python-traceback-jumper",
     "displayName": "python traceback jumper",
     "description": " An extension for VSCode that jumps to the source by clicking python traceback",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "publisher": "linw1995",
+    "license": "mit",
     "icon": "images/icon.svg",
     "engines": {
         "vscode": "^1.10.0"
     },
+    "keywords": [
+        "python"
+    ],
     "categories": [
         "Other",
         "Languages"
@@ -23,7 +27,17 @@
             "mimetypes": [
             "text/x-code-output"
             ]
-        }]
+        }],
+    "configuration": {
+		"title": "Python traceback jumper Configuration",
+		"properties": {
+            "python.tracebackJumper.Enable":{
+                "type": "boolean",
+                "default": false,
+                "description": "Whether to enable python traceback jumper"
+            }
+        }
+    }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",

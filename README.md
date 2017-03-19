@@ -4,24 +4,30 @@
 
  An extension for VSCode that jumps to the source by clicking python traceback
 
-## Features
+## Hot to use
 
-* Automatically gather the Python traceback to Diagnostic panel
+For enable python traceback jumper, add the following to your setting file:
 
-* Add DocumentLink to the traceback file uris
+```plain
+    "python.tracebackJumper.enable": true
+```
 
+Configure task like this
 
-## Known Issues
+```json
+{
+    "command": "${config.python.pythonPath}",
+    "isShellCommand": true,
+    "args": ["${file}"],
+    "showOutput": "always"
+}
+```
 
-* Diagnotics sorted by line number **:(**
-
-* DocumentLink can't point to more accurate position **:(**
+Run the task, when output has python Trackback, you can click the file path to the source
 
 ## Release Notes
 
-### 1.0.2
-
-Current version
+### 1.0.4
 
 -----------------------------------------------------------------------------------------------------------
 
