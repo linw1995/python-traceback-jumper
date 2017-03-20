@@ -30,7 +30,7 @@ export class DocumentLinkProvider implements vscode.DocumentLinkProvider {
                     uri = vscode.Uri.file(path);
                 }
                 let range = new vscode.Range(line_idx, 8, line_idx, result[1].length + 8);
-                let documentlink = new vscode.DocumentLink(range, uri.with({ fragment: `${result[2]}` }));
+                let documentlink = new vscode.DocumentLink(range, uri.with({ fragment: result[2] }));
                 documentLinks.push(documentlink);
             }
             line_idx++;
