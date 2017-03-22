@@ -17,7 +17,7 @@ export class DocumentLinkProvider implements vscode.DocumentLinkProvider {
 
         while (line_idx < doc.lineCount) {
             let line = doc.lineAt(line_idx);
-            let result = line.text.match("  File \"(.*?)\", line ([0-9]+), in (.*)");
+            let result = line.text.match("  File \"(.*?)\", line ([0-9]+),");
             if (result != null) {
 
                 let uri: vscode.Uri;
