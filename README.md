@@ -1,6 +1,6 @@
 # python-traceback-jumper
 
-![icon](https://cdn.rawgit.com/linw1995/python-traceback-jumper/7bdc72b4/images/icon.svg)
+![icon](https://cdn.rawgit.com/linw1995/python-traceback-jumper/2dda604b/images/icon.svg)
 
  An extension for VSCode that jumps to the source by clicking python traceback
 
@@ -34,7 +34,7 @@ Run the task, when output has python Trackback, you can click the file path to t
 
 ## Release Notes
 
-### 1.0.5
+### 1.0.6
 
 -----------------------------------------------------------------------------------------------------------
 

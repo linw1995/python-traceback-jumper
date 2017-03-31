@@ -2,7 +2,7 @@
     "name": "python-traceback-jumper",
     "displayName": "python traceback jumper",
     "description": " An extension for VSCode that jumps to the source by clicking python traceback",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "publisher": "linw1995",
     "license": "mit",
     "icon": "images/icon.svg",
