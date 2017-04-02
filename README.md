@@ -34,7 +34,9 @@ Run the task, when output has python Trackback, you can click the file path to t
 
 ## Release Notes
 
-### 1.0.6
+### 1.0.6 change icon
+
+### 1.0.7 fix bug
 
 -----------------------------------------------------------------------------------------------------------
 
