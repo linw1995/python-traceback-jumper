@@ -2,10 +2,10 @@
     "name": "python-traceback-jumper",
     "displayName": "python traceback jumper",
     "description": " An extension for VSCode that jumps to the source by clicking python traceback",
-    "version": "1.0.7",
+    "version": "1.0.9",
     "publisher": "linw1995",
     "license": "mit",
-    "icon": "images/icon.svg",
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.10.0"
     },
@@ -20,24 +20,25 @@
         "*"
     ],
     "main": "./out/src/extension",
-    "contributes": { 
+    "contributes": {
         "languages": [
-        {
-            "id": "python-traceback-output",
-            "mimetypes": [
-            "text/x-code-output"
-            ]
-        }],
-    "configuration": {
-		"title": "Python traceback jumper Configuration",
-		"properties": {
-            "python.tracebackJumper.Enable":{
-                "type": "boolean",
-                "default": false,
-                "description": "Whether to enable python traceback jumper"
+            {
+                "id": "python-traceback-output",
+                "mimetypes": [
+                    "text/x-code-output"
+                ]
+            }
+        ],
+        "configuration": {
+            "title": "Python traceback jumper Configuration",
+            "properties": {
+                "python.tracebackJumper.Enable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to enable python traceback jumper"
+                }
             }
         }
-    }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
@@ -45,7 +46,10 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0"
+        "typescript": "2.4.1",
+        "vscode": "1.1.1"
+    },
+    "dependencies": {
+        "vsce": "^1.27.0"
     }
 }
